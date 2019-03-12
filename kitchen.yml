@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+  use_sudo: true  
+
+provisioner:
+  name: ansible_playbook
+  #ansible_inventory: inventory
+  ansible_verbose: true
+  ansible_verbosity: 2
+  hosts: all
+
+platforms:
+  #- name: centos-6 #passed
+  #- name: centos-7 #passed
+  #- name: debian-8 #passed
+  #- name: debian-9 #passed
+  #- name: ubuntu-14.04 #passed
+  #- name: ubuntu-16.04 #passed
+  #- name: ubuntu-17.10 #passed
+
+
+suites:
+  - name: default

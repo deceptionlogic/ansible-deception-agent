@@ -1,0 +1,38 @@
+---
+- name: Ensure dependencies installed
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - debian-keyring
+      - debian-archive-keyring
+      - apt-transport-https
+  ignore_errors: true
+
+- name: Import gpg key
+  apt_key:
+    state: present
+    url: "{{ gpg_key_url }}"
+
+- name: "Setting up deception-logic repository"
+  apt_repository:
+    repo: "{{ debian_jessie_repo }}"
+    state: present
+    filename: deception-logic-deception-agent
+  when: ansible_distribution_release == 'jessie'
+
+- name: "Setting up deception-logic repository"
+  apt_repository:
+    repo: "{{ debian_stretch_repo }}"
+    state: present
+    filename: deception-logic-deception-agent
+  when: ansible_distribution_release == 'stretch'
+
+- name: Ensure deception-agent installed
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - deception-agent

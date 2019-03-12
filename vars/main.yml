@@ -1,0 +1,17 @@
+---
+
+gpg_key_url: "https://dl.deceptionlogic.net/public/deception-agent/cfg/gpg/gpg.3812E46CD5C4E4A6.key"
+
+rhel6_repo_url: "https://dl.deceptionlogic.net/public/deception-agent/cfg/setup/config.rpm.txt?codename=6&distro=el"
+rhel7_repo_url: "https://dl.deceptionlogic.net/public/deception-agent/cfg/setup/config.rpm.txt?codename=7&distro=el"
+
+
+rhel6_repo_baseurl: "https://dl.deceptionlogic.net/public/deception-agent/rpm/el/6/$basearch"
+rhel7_repo_baseurl: "https://dl.deceptionlogic.net/public/deception-agent/rpm/el/7/$basearch"
+
+debian_jessie_repo: "deb https://dl.deceptionlogic.net/public/deception-agent/deb/debian jessie main"
+debian_stretch_repo: "deb https://dl.deceptionlogic.net/public/deception-agent/deb/debian stretch main"
+
+ubuntu_trusty_repo: "deb https://dl.deceptionlogic.net/public/deception-agent/deb/ubuntu trusty main"
+ubuntu_xenial_repo: "deb https://dl.deceptionlogic.net/public/deception-agent/deb/ubuntu xenial main"
+ubuntu_artful_repo: "deb https://dl.deceptionlogic.net/public/deception-agent/deb/ubuntu artful main"

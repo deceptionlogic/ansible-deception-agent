@@ -1,0 +1,34 @@
+---
+- name: Ensure dependencies installed
+  yum:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: latest
+  vars:
+    packages:
+      - yum-utils
+      - pygpgme
+
+- name: import gpg key
+  shell: "rpm --import 'https://dl.deceptionlogic.net/public/deception-agent/cfg/gpg/gpg.3812E46CD5C4E4A6.key'"
+
+- name: get repo
+  shell: "curl -1sLf \
+  'https://dl.deceptionlogic.net/public/deception-agent/cfg/setup/config.rpm.txt?codename=6&distro=el' \
+  > /tmp/deception-logic-deception-agent.repo"
+
+- name: add repo
+  shell: "yum-config-manager --add-repo '/tmp/deception-logic-deception-agent.repo'"
+
+- name: update repo
+  shell: "yum -q makecache -y --disablerepo='*' --enablerepo='deception-logic-deception-agent' \
+  --enablerepo='deception-logic-deception-agent'"
+
+- name: Ensure deception-agent installed
+  yum:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - deception-agent
+

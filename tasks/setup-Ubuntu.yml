@@ -1,0 +1,47 @@
+---
+- name: Ensure dependencies installed
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - debian-keyring
+      - debian-archive-keyring
+      - apt-transport-https
+  ignore_errors: true
+
+- name: Import gpg key
+  apt_key:
+    state: present
+    url: "{{ gpg_key_url }}"
+  when: not ansible_distribution_release == 'trusty'
+
+- name: import gpg key
+  shell: "curl -1sLf 'https://dl.deceptionlogic.net/public/deception-agent/cfg/gpg/gpg.3812E46CD5C4E4A6.key' | apt-key add -"
+  when: ansible_distribution_release == 'trusty'
+
+- name: add repo
+  shell: "curl -1sLf 'https://dl.deceptionlogic.net/public/deception-agent/cfg/setup/config.deb.txt?codename=trusty&distro=ubuntu' > /etc/apt/sources.list.d/deception-logic-deception-agent.list"
+  when: ansible_distribution_release == 'trusty'
+
+- name: "Setting up deception-logic repository"
+  apt_repository:
+    repo: "{{ ubuntu_xenial_repo }}"
+    state: present
+    filename: deception-logic-deception-agent
+  when: ansible_distribution_release == 'xenial'
+
+- name: "Setting up deception-logic repository"
+  apt_repository:
+    repo: "{{ ubuntu_artful_repo }}"
+    state: present
+    filename: deception-logic-deception-agent
+  when: ansible_distribution_release == 'artful'
+
+- name: Ensure deception-agent installed
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - deception-agent

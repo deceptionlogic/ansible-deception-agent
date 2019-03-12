@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  become: true
+  roles:
+    - ansible_deception-agent
+  vars:
+    - key_id: "foo"
+    - secret_key: "bar"
+    - log_file_retention: "10"
